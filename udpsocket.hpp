@@ -67,7 +67,7 @@ public:
 		}
 		return true;
 	}
-	bool RECV(string &buf,string &ip,uint16_t &port)
+	bool RECV(string &buf,string &ip,uint16_t &port)//这里的ip和port是传入传出参数，这里用的是地址，你先在外面定义好这个port和ip然后里面接收到对端信息之后就会获取到这个ip以及port然后再对你传入的地址进行修改之后，就可以在外部访问这个端口和IP了
 	{
 		//ssize_t recvfrom(int sockfd, void *buf, size_t len
 		//,int flags,struct sockaddr *src_addr, socklen_t *addrlen);
@@ -83,9 +83,9 @@ public:
 		//从tmp中截取ret长的数据放到buf中
 		buf.assign(tmp,ret);
 		//再把网络字节序ip地址转换成点分十进制IP地址
-		ip = inet_ntoa(addr.sin_addr);
+		ip = inet_ntoa(addr.sin_addr);        //这里就是对端口和ip的地址的改写
 		//将16位的数据从网络字节序转换为主机字节序
-		port = ntohs(addr.sin_port);
+		port = ntohs(addr.sin_port);          //这个也是改写
 		return true;
 	}
 	bool SEND(string &buf,string &ip,uint16_t port )
